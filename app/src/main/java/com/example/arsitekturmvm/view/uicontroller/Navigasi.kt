@@ -26,4 +26,26 @@ fun SiswaApp(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier,
     viewModel: SiswaViewModel = viewModel ()
-){}
+){
+
+    Scaffold { isiRuang->
+        val uiState = viewModel.statusUI.collectAsState()
+        NavHost(
+            navController = navController,
+            startDestination = Navigasi.Formulirku.name,
+
+            modifier = Modifier.padding(isiRuang)){
+            composable(route = Navigasi.Formulirku.name){
+                val konteks = LocalContext.current
+                FormSiswa (
+                    pilihanJK = DataJK.jenisK.map { id -> konteks.resources.getString(id)},
+                    onSubmitButtonClicked = {
+                        viewModel.saveDataSiswa(it)
+                        navController.navigate(Navigasi.Detail.name)
+                    }
+                )
+            }
+
+        }
+    }
+}
