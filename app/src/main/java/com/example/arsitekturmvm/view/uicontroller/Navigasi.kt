@@ -45,7 +45,22 @@ fun SiswaApp(
                     }
                 )
             }
+            composable(route = Navigasi.Detail.name){
+                TampilData (
+                    statusUiSiswa = uiState.value,
+                    onBackButtonClicked = {
+                        cancelAndBackToFormulirku(navController)
+                    }
+                )
+            }
+
 
         }
     }
+}
+private fun cancelAndBackToFormulirku(
+    navController: NavHostController
+) {
+    navController.popBackStack(Navigasi.Formulirku.name,
+        inclusive = false)
 }
